@@ -12,6 +12,8 @@
      $ dpkg -i mysql-apt-config_0.8.24-1_all.deb
      $ apt install mysql-server mysql-client
    ```
+   ![image](https://github.com/user-attachments/assets/7741d61e-7418-48a0-a2a7-b5f2c476efd3)
+
 
 
 
