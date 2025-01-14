@@ -28,8 +28,10 @@
 ![image](https://github.com/user-attachments/assets/d9bf898d-929c-4c2f-af83-6699ed7a6422)
 
 6. В подключенном MySQL репозитории создать базу данных “Друзья человека”
-   ```CREATE DATABASE IF NOT EXISTS HumanFriends;
-   USE HumanFriends;```
+   ```
+   CREATE DATABASE IF NOT EXISTS HumanFriends;
+   USE HumanFriends;
+   ```
 
 
 
