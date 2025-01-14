@@ -21,6 +21,15 @@
    $ sudo dpkg -r mysql-apt-config
    $ sudo dpkg --purge mysql-apt-config
 ```
+5. Нарисовать диаграмму, в которой есть класс родительский класс, домашние животные и вьючные животные, в составы которых в случае домашних животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные войдут: Лошади, верблюды и ослы).
+   
+![image](https://github.com/user-attachments/assets/d2de2162-7527-458e-836e-29eb49058448)
+
+![image](https://github.com/user-attachments/assets/d9bf898d-929c-4c2f-af83-6699ed7a6422)
+
+6. В подключенном MySQL репозитории создать базу данных “Друзья человека”
+   ```CREATE DATABASE IF NOT EXISTS HumanFriends;
+   USE HumanFriends;```
 
 
 
