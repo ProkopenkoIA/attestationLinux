@@ -7,7 +7,7 @@
 ![image](https://github.com/user-attachments/assets/f9ae38f8-99bb-4000-8c40-188b8f415921)
 
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет из этого репозитория.
-   ```
+   ```shell
      $ wget -c https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb
      $ dpkg -i mysql-apt-config_0.8.24-1_all.deb
      $ apt install mysql-server mysql-client
@@ -16,7 +16,7 @@
 
 4. Установить и удалить deb-пакет с помощью dpkg
 
-```
+```shell
    $ sudo dpkg -i mysql-apt-config_0.8.24-1_all.deb
    $ sudo dpkg -r mysql-apt-config
    $ sudo dpkg --purge mysql-apt-config
@@ -28,12 +28,12 @@
 ![image](https://github.com/user-attachments/assets/d9bf898d-929c-4c2f-af83-6699ed7a6422)
 
 6. В подключенном MySQL репозитории создать базу данных “Друзья человека”
-   ```
+   ```sql
    CREATE DATABASE IF NOT EXISTS HumanFriends;
    USE HumanFriends;
    ```
 7. Создать таблицы с иерархией из диаграммы в БД
-   ```
+   ```sql
    CREATE TABLE MainClass
    (
        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -79,7 +79,7 @@
    );
    ```
 8. Заполнить низкоуровневые таблицы именами(животных), командами которые они выполняют и датами рождения
-      ```
+      ```sql
        USE HumanFriends;
 
       INSERT INTO commands(name)
@@ -121,7 +121,7 @@
        (6, 2),(6, 1);
       ```
 9. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
-   ```
+   ```sql
       USE HumanFriends;
       DELETE FROM Animals WHERE id_animal_type = 2;
    
@@ -131,7 +131,7 @@
       SELECT * from Animals WHERE id_animal_type = 3;
    ```
 10. Создать новую таблицу “молодые животные” в которую попадут все животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью до месяца подсчитать возраст животных в новой таблице
-   ```
+   ```sql
       CREATE TABLE YoungAnimals AS
          SELECT id, name, birth_date, 
          CONCAT(TIMESTAMPDIFF(month, birth_date, curdate()) div 12,'y', TIMESTAMPDIFF(month, birth_date, curdate()) - ((TIMESTAMPDIFF(month, birth_date, curdate()) div 12)*12), 'm') as age, id_animal_type 
@@ -140,7 +140,7 @@
                AND date_add(birth_date, INTERVAL 3 YEAR) > curdate();
    ```
 11. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на прошлую принадлежность к старым таблицам.
-   ```
+   ```sql
    SELECT anml.name,
           anml.birth_date,
           CASE WHEN yng.id IS NOT NULL THEN 'Это животное молодое ему' ELSE 'Это не молодое животное' END young,
