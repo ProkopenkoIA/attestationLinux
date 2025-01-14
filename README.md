@@ -6,6 +6,13 @@
    
 ![image](https://github.com/user-attachments/assets/f9ae38f8-99bb-4000-8c40-188b8f415921)
 
+3. Подключить дополнительный репозиторий MySQL. Установить любой пакет из этого репозитория.
+   ``$ wget -c https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb
+     $ dpkg -i mysql-apt-config_0.8.24-1_all.deb
+     $ apt install mysql-server mysql-client
+   ``
+
+
 
 
 
