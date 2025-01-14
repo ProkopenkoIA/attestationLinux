@@ -14,7 +14,13 @@
    ```
    ![image](https://github.com/user-attachments/assets/7741d61e-7418-48a0-a2a7-b5f2c476efd3)
 
+4.Установить и удалить deb-пакет с помощью dpkg
 
+```
+   $ sudo dpkg -i mysql-apt-config_0.8.24-1_all.deb
+   $ sudo dpkg -r mysql-apt-config
+   $ sudo dpkg --purge mysql-apt-config
+```
 
 
 
