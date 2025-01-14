@@ -78,7 +78,7 @@
         ON DELETE CASCADE  ON UPDATE CASCADE
    );
    ```
-   8. Заполнить низкоуровневые таблицы именами(животных), командами которые они выполняют и датами рождения
+8. Заполнить низкоуровневые таблицы именами(животных), командами которые они выполняют и датами рождения
       ```
        USE HumanFriends;
 
@@ -90,12 +90,12 @@
        ('Галоп!'),
        ('Поклон!');
       
-      INSERT INTO AnimalType (name)
+      INSERT INTO MainClass (name)
       VALUES
        ('Вьючные животные'),
        ('Домашние животные');
       
-      INSERT INTO Animals (name, id_class)
+      INSERT INTO AnimalType (name, id_class)
       VALUES
        ('Лошадь', 1),
        ('Верблюд', 1),
@@ -104,7 +104,7 @@
        ('Собака', 2),
        ('Хомяк', 2);
       
-      INSERT INTO KennelAnimal (name, birth_date, id_animal_type)
+      INSERT INTO Animals (name, birth_date, id_animal_type)
       VALUES
        ('Плотва', '2020-03-04', 1),
        ('Гнедой', '2022-12-01', 1),
@@ -120,6 +120,38 @@
        (7, 3), (5, 1), (5, 4),
        (6, 2),(6, 1);
       ```
+9. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
+   ```
+      USE HumanFriends;
+      DELETE FROM Animals WHERE id_animal_type = 2;
+   
+      CREATE TABLE HorseAndDonkey AS
+      SELECT * from Animals WHERE id_animal_type = 1
+      UNION
+      SELECT * from Animals WHERE id_animal_type = 3;
+   ```
+10. Создать новую таблицу “молодые животные” в которую попадут все животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью до месяца подсчитать возраст животных в новой таблице
+   ```
+      CREATE TABLE YoungAnimals AS
+         SELECT id, name, birth_date, 
+         CONCAT(TIMESTAMPDIFF(month, birth_date, curdate()) div 12,'y', TIMESTAMPDIFF(month, birth_date, curdate()) - ((TIMESTAMPDIFF(month, birth_date, curdate()) div 12)*12), 'm') as age, id_animal_type 
+         from Animals 
+         WHERE date_add(birth_date, INTERVAL 1 YEAR) < curdate() 
+               AND date_add(birth_date, INTERVAL 3 YEAR) > curdate();
+   ```
+11. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на прошлую принадлежность к старым таблицам.
+   ```
+   SELECT anml.name,
+          anml.birth_date,
+          CASE WHEN yng.id IS NOT NULL THEN 'Это животное молодое ему' ELSE 'Это не молодое животное' END young,
+          CASE WHEN had.id IS NOT NULL THEN 'Это животное является конем или ослом' ELSE 'Это не является конем или ослом' END is_had          
+   FROM Animals anml
+   LEFT JOIN YoungAnimals as yng ON yng.id = anml.id
+   LEFT JOIN HorseAndDonkey as had ON had.id = anml.id
+   ```
+    
+
+
 
 
 
