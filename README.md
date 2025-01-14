@@ -144,7 +144,7 @@
    SELECT anml.name,
           anml.birth_date,
           CASE WHEN yng.id IS NOT NULL THEN 'Это животное молодое ему' ELSE 'Это не молодое животное' END young,
-          CASE WHEN had.id IS NOT NULL THEN 'Это животное является конем или ослом' ELSE 'Это не является конем или ослом' END is_had          
+          CASE WHEN had.id IS NOT NULL THEN 'Это животное является конем или ослом' ELSE 'Это животное не является конем или ослом' END is_had          
    FROM Animals anml
    LEFT JOIN YoungAnimals as yng ON yng.id = anml.id
    LEFT JOIN HorseAndDonkey as had ON had.id = anml.id
