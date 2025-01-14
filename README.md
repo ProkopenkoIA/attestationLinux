@@ -32,6 +32,52 @@
    CREATE DATABASE IF NOT EXISTS HumanFriends;
    USE HumanFriends;
    ```
+7. Создать таблицы с иерархией из диаграммы в БД
+   ```
+   CREATE TABLE MainClass
+   (
+       id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+       name varchar(255)
+   );
+   
+   CREATE TABLE AnimalType
+   (
+       id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+       name varchar(255),
+       id_class INT,
+       FOREIGN KEY (id_class) REFERENCES MainClass (id)
+       ON DELETE CASCADE ON UPDATE CASCADE
+   );
+   
+   CREATE TABLE Animals
+   (
+       id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+       name varchar(255),
+       birth_date DATE,
+       id_animal_type INT,
+       FOREIGN KEY (id_animal_type) REFERENCES AnimalType (id)
+       ON DELETE CASCADE ON UPDATE CASCADE
+   );
+
+    CREATE TABLE Commands
+   (
+       id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+       name varchar(255),
+       description varchar(255)
+   );
+   
+   CREATE TABLE AnimalCommands
+   (
+       id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+       id_animal INT NOT NULL,
+       id_command INT NOT NULL,
+
+       FOREIGN KEY (id_animal) REFERENCES Animals (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+       FOREIGN KEY (id_command) REFERENCES Commands (id)
+        ON DELETE CASCADE  ON UPDATE CASCADE
+   );
+   ```
 
 
 
